@@ -5,6 +5,21 @@ using System.Text;
 
 namespace TinyBrowser {
     class Program {
+        
+        static string FindTextBetweenTags(string original, string start, string end) {
+            var titleIndex = original.IndexOf(start);
+            string title = string.Empty;
+            if (titleIndex != -1) {
+                titleIndex += start.Length;
+                var titleEndIndex = original.IndexOf(end);
+                if (titleEndIndex > titleIndex) {
+                    title = original[titleIndex..titleEndIndex];
+                }
+            }
+
+            return title;
+        }
+        
         static void Main(string[] args) {
             var host = "acme.com";
             var uri = "/";
@@ -22,6 +37,9 @@ namespace TinyBrowser {
             var uriBuilder = new UriBuilder(null, host);
             uriBuilder.Path = uri;
             Console.WriteLine($"Opened {uriBuilder}");
+            
+            var titleText = FindTextBetweenTags(response, "<title>", "</title>");
+            Console.WriteLine("Title: "+titleText);
         }
     }
 }
