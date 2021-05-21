@@ -7,21 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace TinyBrowser {
     class Program {
-        
-        static string FindTextBetweenTags(string original, string start, string end) {
-            var titleIndex = original.IndexOf(start);
-            string title = string.Empty;
-            if (titleIndex != -1) {
-                titleIndex += start.Length;
-                var titleEndIndex = original.IndexOf(end);
-                if (titleEndIndex > titleIndex) {
-                    title = original[titleIndex..titleEndIndex];
-                }
-            }
-
-            return title;
-        }
-        
         static void Main(string[] args) {
             
                 const string host = "acme.com";
@@ -52,8 +37,10 @@ namespace TinyBrowser {
                     Console.Write($"{links[i][1]}\n");
                 }
 
-                // stream.Close();
-                // tcpClient.Close();
+                Console.ReadLine();
+                
+                stream.Close();
+                tcpClient.Close();
         }
 
         private static List<string[]> GetLinks(string response) {
@@ -65,6 +52,19 @@ namespace TinyBrowser {
                 links.Add(new[] {match.Groups["title"].Value, match.Groups["link"].Value});
             }
             return links;
+        }
+        
+        static string FindTextBetweenTags(string original, string start, string end) {
+            var titleIndex = original.IndexOf(start);
+            string title = string.Empty;
+            if (titleIndex != -1) {
+                titleIndex += start.Length;
+                var titleEndIndex = original.IndexOf(end);
+                if (titleEndIndex > titleIndex) {
+                    title = original[titleIndex..titleEndIndex];
+                }
+            }
+            return title;
         }
 
     }
