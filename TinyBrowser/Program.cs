@@ -46,10 +46,10 @@ namespace TinyBrowser {
                 Console.WriteLine("Title: " + titleText);
 
                 var links = GetLinks(response);
-                
-                foreach (var link in links) {
-                    Console.Write($"{links.IndexOf(link)}");
-                    // Console.WriteLine($" {links.Count}");
+
+                for (int i = 0; i < links.Count; i++) {
+                    Console.Write($"{i} ");
+                    Console.Write($"{links[i][1]}\n");
                 }
 
                 // stream.Close();
